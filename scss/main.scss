@@ -23,6 +23,7 @@ $cW: #fff;
 $cA: #00bc83;
 $cB: darken( $cA, 10% );
 $cC: #502bac;
+$cF: darken( $cC, 10% );
 
 $fA: 'Montserrat', sans-serif;
 $fB: 'Roboto', sans-serif;
@@ -64,6 +65,8 @@ main{
   position: relative;
   @include flex;
   @include edContainer;
+  justify-content: center;
+  align-items: center;
 }
 
 nav{
@@ -143,10 +146,97 @@ nav{
 
 //masonry
 
-.masonryLayout{
+.gallery{
   @include flex;
-  .colum{
+  @include edContainer;
+  position: relative;
+  z-index: 100;
+  margin-top: 4rem;
+  .item-box{
     @include flex;
     @include edItem(100,50,33.33,25);
+    padding: 1rem;
   }
+  .item{
+    @include flex;
+    position: relative;
+    width: 100%;
+    background: $cB;
+    color: $cW;
+    -webkit-box-shadow: 0px 5px 30px 0px rgba(66,99,78,0.15);
+    -moz-box-shadow: 0px 5px 30px 0px rgba(66,99,78,0.15);
+    box-shadow: 0px 5px 30px 0px rgba(66,99,78,0.15);
+    overflow: hidden;
+    border-radius: 0.2rem;
+    &:hover{
+      background: $cC;
+        .image{
+        &::before{
+          content: '';
+          width: 100%;
+          height: 200%;
+          position: absolute;
+          z-index: 110;
+          background-image: url('../img/mas.svg');
+          background-position: center 25%;
+          background-size: 3rem;
+          background-repeat: no-repeat;
+          background-color: $cW;
+          filter: contrast(200%);
+          opacity: 0.4;
+          }
+        }
+        .data{
+          border-top: 0.2rem solid $cF;
+        }
+      }
+    .image{
+      @include flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-top: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      img{
+        display: block;
+        position: absolute;
+        object-fit: cover;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+    }
+    .data{
+      width: 100%;
+      padding: 1rem;
+      border-top: 0.2rem solid #40cd53;
+      h4{
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+
+.detalle-fondo{
+  position: fixed;
+  z-index: 200;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000bf;
+  top: 0;
+  right: 0;
+  @include flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detalle{
+  width: 80%;
+  height: 80vh;
+  background-color: #fff;
 }
