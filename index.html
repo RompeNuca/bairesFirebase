@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Baires Print</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="./scss/main.css">
+</head>
+<body>
+  <div id="app">
+    <baires></baires>
+  </div>
+
+  <template id="baires">
+    <div class="all">
+      <nav>
+          <main>
+            <a href="#">Home</a>
+            <a href="#">Trabajos</a>
+            <a href="#">Contacto</a>
+          </main>
+        </nav>
+        <main>
+          <div class="intro">
+            <div class="ini">
+              <img src="img/baires.svg" alt="">
+            </div>
+            <div class="des">
+              <p>
+                Fábrica de packaging, material para punto de venta y folletería.
+              </p>
+            </div>
+          </div>
+
+          <div class="gallery masonryLayout">
+            <div class="colum columA"></div>
+            <div class="colum columB"></div>
+            <div class="colum columC"></div>
+            <div class="colum columD"></div>
+          </div>
+
+          <div class="back">
+            <div class="rellax red" data-rellax-speed="-7"></div>
+            <div class="rellax blue" data-rellax-speed="-3"></div>
+            <div class="rellax yellow" data-rellax-speed="0"></div>
+            <div class="rellax redG" data-rellax-speed="-9"></div>
+            <div class="rellax blueG" data-rellax-speed="-6"></div>
+            <div class="rellax yellowG" data-rellax-speed="-3"></div>
+          </div>    
+
+        </main>
+        <div class="mentira"></div>
+        <div class="code">
+          {{ colums }} {{ trabajos }}
+        </div>
+      </div>
+  </template>
+  <script src="js/rellax.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <!-- <script src="js/fireBaseLog.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+  <script>
+
+    var config = {
+      apiKey: "AIzaSyDhkTT8JegV-ZThdjIJ_MABJM1gwkDR9ds",
+      authDomain: "bairesprint-c020d.firebaseapp.com",
+      databaseURL: "https://bairesprint-c020d.firebaseio.com",
+      projectId: "bairesprint-c020d",
+      storageBucket: "bairesprint-c020d.appspot.com",
+      messagingSenderId: "695695201889"
+    };
+
+    firebase.initializeApp(config);
+    var db = firebase.database();
+    var ref = db.ref('/');
+    var trabajosRef = db.ref('/trabajos');
+
+    var app = new Vue({
+      el: '#app',
+      template: '#baires',
+      data: {
+        trabajos: 'Hello Vue!',
+        colums: [
+          [],
+          ['2'],
+          ['3'],
+          ['4']
+        ],
+      },
+      mounted() {
+        var rellax = new Rellax('.rellax');
+        this.getTrabajos();
+        this.masonry(this.trabajos);
+      },
+      methods:{
+        getTrabajos() {
+          var todos = []
+          trabajosRef.on('child_added', (data) => {
+            todos.push(data.val()) 
+          })
+          this.trabajos = todos
+        },
+        masonry(array) {
+          
+          var columsElements = [
+            [],[],[],[]
+          ]
+          var nColums = this.colums.length
+  
+          
+          for (let i = 0; i < Math.ceil(array.length / nColums); i++) {
+            for (let n = 0; n < nColums; n++) {
+              console.log('e');
+               console.log(nColums[n]);
+              columsElements[n].appendChild(array[i * nColums + n])
+
+            }
+          }
+
+
+        }
+      }
+    })
+  </script>
+</body>
+</html>

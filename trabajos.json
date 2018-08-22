@@ -1,0 +1,12 @@
+{
+  "trabajos" : [
+    {
+      "_id" : "01",
+      "name" : "primero"
+    },
+    {
+      "_id" : "02",
+      "name" : "segundo"
+    }
+  ]
+}

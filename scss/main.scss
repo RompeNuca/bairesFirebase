@@ -1,0 +1,152 @@
+$cssCore    : false  !default; //Compila todo el css (no recomendado si se trabaja con sass).
+$cssHelpers : false  !default; //Ayudas extras para el layout (para alinear elementos, limpiar los floats, controlar el padding, etc...) Se recomienda activarlo.
+$devMode    : false !default;
+
+$container : container !default; // Permite modificar el nombre de las clases usadas como contenedor e item.
+$item      : item !default;
+$gutter : em(15px) !default;
+$max-width : 1440px !default;
+
+$breakpoints : (
+  s  : 480,
+  m  : 640px,
+  l  : 1024px,
+  xl : 1440px
+) !default;
+
+@import "components/base"; 
+@import "components/media-queries"; 
+@import "components/core";       // estilos para menus
+@import "components/flexbox";
+
+$cW: #fff;
+$cA: #00bc83;
+$cB: darken( $cA, 10% );
+$cC: #502bac;
+
+$fA: 'Montserrat', sans-serif;
+$fB: 'Roboto', sans-serif;
+
+*{
+  box-sizing: border-box;
+}
+
+p,h1,h2,h3,h4,h5,h6{
+  font-family: $fB;
+  margin: 0;
+}
+
+a{
+  color: $cW;
+  text-decoration: none;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+img{
+  min-width: 100%;
+  height: auto;
+}
+
+body{
+  background-color: $cA;
+  height: 50vh;
+  width: 100%;
+  margin: 0;
+}
+
+.all{
+  height: 100vh;
+}
+
+main{
+  position: relative;
+  @include flex;
+  @include edContainer;
+}
+
+nav{
+  @include flex;
+  width: 100%;
+  background-color: $cB;
+  position: relative;
+  a{
+    font-family: $fA;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+    padding: 1rem;
+    &:nth-last-child(1){
+      position: absolute;
+      right: 0;
+      background-color: $cC;
+    }
+  } 
+}
+
+.intro{
+  @include flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 6rem;
+  margin-top: 6rem;
+  justify-content: center;
+  align-items: center;
+  color: $cW;
+  .ini{
+    @include edItem(50,20,14);
+  }
+  .des{
+    @include edItem(100,40,36);
+    font-weight: 200;
+  }
+}
+
+.back{
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
+.red,.blue,.yellow,.redG,.blueG,.yellowG{
+  height: 48rem;
+  width: 40rem;
+  position: absolute;
+  background-size: cover;
+}
+.red{
+  background-image: url('../img/paralax/rojo.svg');
+}
+.blue{
+  background-image: url('../img/paralax/azul.svg');
+}
+.yellow{
+  background-image: url('../img/paralax/amarillo.svg');
+}
+.redG{
+  background-image: url('../img/paralax/rojoG.svg');
+}
+.blueG{
+  background-image: url('../img/paralax/azulG.svg');
+}
+.yellowG{
+  background-image: url('../img/paralax/amarilloG.svg');
+}
+
+.mentira{
+  height: 2000px;
+}
+
+//masonry
+
+.masonryLayout{
+  @include flex;
+  .colum{
+    @include flex;
+    @include edItem(100,50,33.33,25);
+  }
+}
