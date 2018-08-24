@@ -35,11 +35,17 @@
             </div>
           </div>
 
-          <div class="gallery masonryLayout">
-            <div class="colum columA"></div>
-            <div class="colum columB"></div>
-            <div class="colum columC"></div>
-            <div class="colum columD"></div>
+          <div class="gallery">
+            <div class="item-box" v-for="trabajo in trabajos" :key="trabajo._id">
+              <div class="item">
+                <div class="image">
+                  <img :src="trabajo.image" alt="">
+                </div>
+                <div class="data">
+                  <h4>{{trabajo.name}}</h4>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="back">
@@ -49,12 +55,20 @@
             <div class="rellax redG" data-rellax-speed="-9"></div>
             <div class="rellax blueG" data-rellax-speed="-6"></div>
             <div class="rellax yellowG" data-rellax-speed="-3"></div>
-          </div>    
+          </div> 
+          
+          
+          <div class="detalle-fondo"
+                v-if="detalle">
+            <div class="detalle">
+
+            </div>
+          </div>
 
         </main>
         <div class="mentira"></div>
         <div class="code">
-          {{ colums }} {{ trabajos }}
+          {{ trabajos }}
         </div>
       </div>
   </template>
@@ -83,45 +97,18 @@
       el: '#app',
       template: '#baires',
       data: {
-        trabajos: 'Hello Vue!',
-        colums: [
-          [],
-          ['2'],
-          ['3'],
-          ['4']
-        ],
+        detalle: false,
+        trabajos: [],
       },
       mounted() {
         var rellax = new Rellax('.rellax');
         this.getTrabajos();
-        this.masonry(this.trabajos);
       },
       methods:{
         getTrabajos() {
-          var todos = []
-          trabajosRef.on('child_added', (data) => {
-            todos.push(data.val()) 
+          trabajosRef.on('value', (data) => {
+            this.trabajos = data.val()
           })
-          this.trabajos = todos
-        },
-        masonry(array) {
-          
-          var columsElements = [
-            [],[],[],[]
-          ]
-          var nColums = this.colums.length
-  
-          
-          for (let i = 0; i < Math.ceil(array.length / nColums); i++) {
-            for (let n = 0; n < nColums; n++) {
-              console.log('e');
-               console.log(nColums[n]);
-              columsElements[n].appendChild(array[i * nColums + n])
-
-            }
-          }
-
-
         }
       }
     })
