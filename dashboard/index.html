@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Baires Print</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="../scss/main.css">
+</head>
+<body>
+  <div id="app">
+    <baires></baires>
+  </div>
+
+  <template id="baires">
+    <div class="all">
+      <nav>
+          <main>
+            <a href="#" @click="singOut()">Salir</a>
+          </main>
+        </nav>
+        <main>
+          <div class="crearTrabajo">
+            <input type="text">
+            <input type="file">
+          </div>
+        </main>
+        <div class="mentira"></div>
+        <div class="code">
+          {{ log }}
+        </div>
+      </div>
+  </template>
+
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+  <script>
+
+    var config = {
+      apiKey: "AIzaSyDhkTT8JegV-ZThdjIJ_MABJM1gwkDR9ds",
+      authDomain: "bairesprint-c020d.firebaseapp.com",
+      databaseURL: "https://bairesprint-c020d.firebaseio.com",
+      projectId: "bairesprint-c020d",
+      storageBucket: "bairesprint-c020d.appspot.com",
+      messagingSenderId: "695695201889"
+    };
+
+    firebase.initializeApp(config);
+    var db = firebase.database();
+    var ref = db.ref('/');
+    var trabajosRef = db.ref('/trabajos');
+
+    var app = new Vue({
+      el: '#app',
+      template: '#baires',
+      data: {
+        log: 'hola'
+      },
+      mounted() {
+        this.postTrabajo()
+      },
+      methods:{
+        postTrabajo() {
+          firebase.auth().onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+              console.log('logueado'); 
+            } else {
+              window.location.href = "/login";
+            }
+          })
+        },
+        singOut() {
+          firebase.auth().signOut().then(function() {
+            console.log('Deslogueado');
+            window.location.href = "/login";
+          });
+        }
+      }
+    })
+  </script>
+  
+</body>
+</html>
