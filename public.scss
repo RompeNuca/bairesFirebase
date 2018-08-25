@@ -1,0 +1,26 @@
+@import "./scss/general";
+.item{
+  cursor: pointer;
+  &:hover{
+    background: $cC;
+      .image{
+      &::before{
+        content: '';
+        width: 100%;
+        height: 200%;
+        position: absolute;
+        z-index: 110;
+        background-image: url('../img/mas.svg');
+        background-position: center 25%;
+        background-size: 3rem;
+        background-repeat: no-repeat;
+        background-color: $cW;
+        filter: contrast(200%);
+        opacity: 0.4;
+        }
+      }
+      .data{
+        border-top: 0.2rem solid $cF;
+      }
+    }
+}

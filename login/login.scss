@@ -1,0 +1,234 @@
+@import '../scss/general';
+
+// GENERALES
+
+.none{
+  display: none;
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.log-container {
+  font-family: $font-1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  background-color: $color-5;
+  transition: 0.2s ease all;
+}
+.log-container-in{
+  position: relative;
+  height: 6em;
+  justify-content: flex-start;
+  align-items: center;
+  transition: 0.2s ease all;
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 340px;
+  background-color: $color-1;
+  border-radius: 0.6rem;
+  transition: 0.2s ease all;
+}
+
+.log-in{
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 0 0 1rem;
+  width: auto;
+  padding: 0.4rem;
+  transition: 0.2s ease all;
+}
+
+.log-header {
+  @include grid('.log-item',2, 0px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  padding: 2rem;
+  background-color: $cB;
+  width: 100%;
+}
+
+.log-item{
+  width: 4rem;
+  img{
+    width: 6em;
+  }
+}
+
+.log-item-in{
+  padding-bottom: 0;
+  img{
+    width: 3rem;
+  }
+}
+
+.nombre{
+  width: auto;
+  padding: 0 0.8em;
+}
+
+.input-container{
+  padding-top: 2rem;
+}
+
+.btn-container {
+  @include grid('.log-item',2, 1em);
+  align-items: center;
+  padding: 0 2rem 2rem 2rem;
+}
+
+.btn-container-in {
+  @include grid('.log-item',1, 1em);
+  align-items: center;
+}
+
+.btn{
+  cursor: pointer;
+  height: 3rem;
+  padding:0 2em;
+  font-size: 0.8rem;
+  border-radius: 0.4em;
+  border: none;
+  font-weight: 400;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  color: $color-4;
+  border: 2px solid $color-4;
+  background-color: transparent;
+  transition: 0.2s ease all;
+}
+
+.btn-secundary{
+  &:hover{
+    color: $color-1;
+    background-color: $color-4;
+    box-shadow:0 4px 8px rgba($color-0, .15);
+    transition: 0.2s ease all;
+  }
+}
+
+.btn-action{
+  color: $color-1;
+  background-color: $color-4;
+  &:hover{
+    color: $color-4;
+    background-color: $color-1;
+    border: 2px solid $color-1;
+    box-shadow:0 4px 8px rgba($color-0, .15);
+    transition: 0.2s ease all;
+  }
+}
+
+.group{
+  position:relative;
+  margin-bottom: 2em;
+  width: 100%;
+}
+
+.group-in{
+  width: auto;
+  margin-bottom: 0;
+}
+
+input {
+  font-family: $font-1;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 10px 10px 55px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $color-6;
+}
+
+input:focus {
+  outline: none;
+    padding: 10px 10px 10px 10px;
+}
+/* LABEL  */
+label {
+  color: $color-7;
+  font-family: $font-1;
+  font-size: 16px;
+  font-weight: 300;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+}
+/* active state */
+input:focus ~ label {
+  top: -1em;
+  font-size: 14px;
+  color: $color-4;
+}
+/* BOTTOM BARS  */
+.bar {
+  position: relative;
+  display: block;
+  min-width: 200px;
+}
+
+.bar:after,
+.bar:before {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: $color-4;
+  
+  transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+/* active state */
+input:focus ~ .bar:after,
+input:focus ~ .bar:before {
+  width: 50%;
+}
+/* HIGHLIGHTER = */
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+/* active state */
+input:focus ~ .highlight {
+  animation:inputHighlighter 0.3s ease;
+}
+/* ANIMATIONS */
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}

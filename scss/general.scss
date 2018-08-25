@@ -1,0 +1,42 @@
+$cssCore    : false  !default; //Compila todo el css (no recomendado si se trabaja con sass).
+$cssHelpers : false  !default; //Ayudas extras para el layout (para alinear elementos, limpiar los floats, controlar el padding, etc...) Se recomienda activarlo.
+$devMode    : false !default;
+
+$container : container !default; // Permite modificar el nombre de las clases usadas como contenedor e item.
+$item      : item !default;
+$gutter : em(15px) !default;
+$max-width : 1440px !default;
+
+$breakpoints : (
+  s  : 480,
+  m  : 640px,
+  l  : 1024px,
+  xl : 1440px
+) !default;
+
+@import '../scss/ed-grid';
+
+.grid-1234 {
+  @include grid ('.item', 1 2 3 4, 1.5em);
+}
+
+$font-1: 'Roboto', sans-serif;
+
+$color-0: #000;
+$color-1: #FFF;
+$color-2: #000;
+$color-3: #000;
+$color-4: #5264AE;
+$color-5: #1A1D22;
+
+$color-6: #DFDFDF;
+$color-7: #9F9F9F;
+
+$cW: #fff;
+$cA: #00bc83;
+$cB: darken( $cA, 10% );
+$cC: #502bac;
+$cF: darken( $cC, 10% );
+
+$fA: 'Montserrat', sans-serif;
+$fB: 'Roboto', sans-serif;

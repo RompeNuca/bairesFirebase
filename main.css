@@ -1,3 +1,8 @@
+@charset "UTF-8";
+/**
+  EDgrid es una librería CSS para construir layouts con Responsive Web Design
+  Importe este archivo en su proyecto para empezar a usarlo
+**/
 *,
 *:before,
 *:after {
@@ -48,6 +53,77 @@ a:hover {
 .item.container {
   padding-left: 0;
   padding-right: 0;
+}
+
+/*
+| Mixin para crear cuadriculas
+|
+| $selector: nombre del selector CSS de cada item de la cuadricula
+|
+| $gutter: separación entre cada item de la cuadricula (opcional)
+|
+*/
+.grid-1234 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: -0.75em;
+  margin-right: -0.75em;
+}
+
+.grid-1234 img {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.grid-1234 > .item {
+  width: calc(100% - 1.5em);
+  margin: 0.75em;
+}
+
+@media screen and (min-width: 640px) {
+  .grid-1234 > .item {
+    width: calc(50% - 1.5em);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .grid-1234 > .item {
+    width: calc(33.33333% - 1.5em);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .grid-1234 > .item {
+    width: calc(25% - 1.5em);
+  }
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v38/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format("woff2");
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {
@@ -278,30 +354,6 @@ nav a:nth-last-child(1) {
   border-radius: 0.2rem;
 }
 
-.gallery .item:hover {
-  background: #502bac;
-}
-
-.gallery .item:hover .image::before {
-  content: '';
-  width: 100%;
-  height: 200%;
-  position: absolute;
-  z-index: 110;
-  background-image: url("../img/mas.svg");
-  background-position: center 25%;
-  background-size: 3rem;
-  background-repeat: no-repeat;
-  background-color: #fff;
-  -webkit-filter: contrast(200%);
-          filter: contrast(200%);
-  opacity: 0.4;
-}
-
-.gallery .item:hover .data {
-  border-top: 0.2rem solid #3d2183;
-}
-
 .gallery .item .image {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -318,7 +370,6 @@ nav a:nth-last-child(1) {
   width: 100%;
   padding-top: 100%;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .gallery .item .image img {

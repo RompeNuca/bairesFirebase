@@ -1,0 +1,462 @@
+@charset "UTF-8";
+/**
+  EDgrid es una librería CSS para construir layouts con Responsive Web Design
+  Importe este archivo en su proyecto para empezar a usarlo
+**/
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.item {
+  margin: 0;
+  padding-left: em(15px);
+  padding-right: em(15px);
+}
+
+.item {
+  width: 100%;
+}
+
+.item.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*
+| Mixin para crear cuadriculas
+|
+| $selector: nombre del selector CSS de cada item de la cuadricula
+|
+| $gutter: separación entre cada item de la cuadricula (opcional)
+|
+*/
+.grid-1234 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: -0.75em;
+  margin-right: -0.75em;
+}
+
+.grid-1234 img {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.grid-1234 > .item {
+  width: calc(100% - 1.5em);
+  margin: 0.75em;
+}
+
+@media screen and (min-width: 640px) {
+  .grid-1234 > .item {
+    width: calc(50% - 1.5em);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .grid-1234 > .item {
+    width: calc(33.33333% - 1.5em);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .grid-1234 > .item {
+    width: calc(25% - 1.5em);
+  }
+}
+
+.none {
+  display: none;
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.log-container {
+  font-family: "Roboto", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  background-color: #1A1D22;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.log-container-in {
+  position: relative;
+  height: 6em;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.log {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 340px;
+  background-color: #FFF;
+  border-radius: 0.6rem;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.log-in {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 0 0 1rem;
+  width: auto;
+  padding: 0.4rem;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.log-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: 0px;
+  margin-right: 0px;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  padding: 2rem;
+  background-color: #00895f;
+  width: 100%;
+}
+
+.log-header img {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.log-header > .log-item {
+  width: calc(50% - 0px);
+  margin: 0px;
+}
+
+.log-item {
+  width: 4rem;
+}
+
+.log-item img {
+  width: 6em;
+}
+
+.log-item-in {
+  padding-bottom: 0;
+}
+
+.log-item-in img {
+  width: 3rem;
+}
+
+.nombre {
+  width: auto;
+  padding: 0 0.8em;
+}
+
+.input-container {
+  padding-top: 2rem;
+}
+
+.btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 2rem 2rem 2rem;
+}
+
+.btn-container img {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.btn-container > .log-item {
+  width: calc(50% - 1em);
+  margin: 0.5em;
+}
+
+.btn-container-in {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.btn-container-in img {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.btn-container-in > .log-item {
+  width: calc(100% - 1em);
+  margin: 0.5em;
+}
+
+.btn {
+  cursor: pointer;
+  height: 3rem;
+  padding: 0 2em;
+  font-size: 0.8rem;
+  border-radius: 0.4em;
+  border: none;
+  font-weight: 400;
+  text-transform: uppercase;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #5264AE;
+  border: 2px solid #5264AE;
+  background-color: transparent;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.btn-secundary:hover {
+  color: #FFF;
+  background-color: #5264AE;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.btn-action {
+  color: #FFF;
+  background-color: #5264AE;
+}
+
+.btn-action:hover {
+  color: #5264AE;
+  background-color: #FFF;
+  border: 2px solid #FFF;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.group {
+  position: relative;
+  margin-bottom: 2em;
+  width: 100%;
+}
+
+.group-in {
+  width: auto;
+  margin-bottom: 0;
+}
+
+input {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 10px 10px 55px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #DFDFDF;
+}
+
+input:focus {
+  outline: none;
+  padding: 10px 10px 10px 10px;
+}
+
+/* LABEL  */
+label {
+  color: #9F9F9F;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label {
+  top: -1em;
+  font-size: 14px;
+  color: #5264AE;
+}
+
+/* BOTTOM BARS  */
+.bar {
+  position: relative;
+  display: block;
+  min-width: 200px;
+}
+
+.bar:after,
+.bar:before {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5264AE;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+
+.bar:after {
+  right: 50%;
+}
+
+/* active state */
+input:focus ~ .bar:after,
+input:focus ~ .bar:before {
+  width: 50%;
+}
+
+/* HIGHLIGHTER = */
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+          animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS */
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #5264AE;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@keyframes inputHighlighter {
+  from {
+    background: #5264AE;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+/*# sourceMappingURL=login.css.map */

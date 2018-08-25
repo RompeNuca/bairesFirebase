@@ -1,32 +1,27 @@
-$cssCore    : false  !default; //Compila todo el css (no recomendado si se trabaja con sass).
-$cssHelpers : false  !default; //Ayudas extras para el layout (para alinear elementos, limpiar los floats, controlar el padding, etc...) Se recomienda activarlo.
-$devMode    : false !default;
+@import "./scss/general";
 
-$container : container !default; // Permite modificar el nombre de las clases usadas como contenedor e item.
-$item      : item !default;
-$gutter : em(15px) !default;
-$max-width : 1440px !default;
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v38/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
 
-$breakpoints : (
-  s  : 480,
-  m  : 640px,
-  l  : 1024px,
-  xl : 1440px
-) !default;
-
-@import "components/base"; 
-@import "components/media-queries"; 
-@import "components/core";       // estilos para menus
-@import "components/flexbox";
-
-$cW: #fff;
-$cA: #00bc83;
-$cB: darken( $cA, 10% );
-$cC: #502bac;
-$cF: darken( $cC, 10% );
-
-$fA: 'Montserrat', sans-serif;
-$fB: 'Roboto', sans-serif;
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  // -webkit-font-feature-settings: 'liga';
+   -webkit-font-smoothing: antialiased;
+}
 
 *{
   box-sizing: border-box;
@@ -168,28 +163,6 @@ nav{
     box-shadow: 0px 5px 30px 0px rgba(66,99,78,0.15);
     overflow: hidden;
     border-radius: 0.2rem;
-    &:hover{
-      background: $cC;
-        .image{
-        &::before{
-          content: '';
-          width: 100%;
-          height: 200%;
-          position: absolute;
-          z-index: 110;
-          background-image: url('../img/mas.svg');
-          background-position: center 25%;
-          background-size: 3rem;
-          background-repeat: no-repeat;
-          background-color: $cW;
-          filter: contrast(200%);
-          opacity: 0.4;
-          }
-        }
-        .data{
-          border-top: 0.2rem solid $cF;
-        }
-      }
     .image{
       @include flex;
       position: relative;
@@ -198,7 +171,6 @@ nav{
       width: 100%;
       padding-top: 100%;
       overflow: hidden;
-      cursor: pointer;
       img{
         display: block;
         position: absolute;
@@ -220,6 +192,7 @@ nav{
     }
   }
 }
+
 
 
 .detalle-fondo{

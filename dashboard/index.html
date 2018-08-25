@@ -7,7 +7,8 @@
   <title>Baires Print</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-  <link rel="stylesheet" href="../scss/main.css">
+  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="./dashboard.css">
 </head>
 <body>
   <div id="app">
@@ -18,18 +19,82 @@
     <div class="all">
       <nav>
           <main>
+            <a href="#">Home</a>
             <a href="#" @click="singOut()">Salir</a>
           </main>
         </nav>
         <main>
-          <div class="crearTrabajo">
-            <input type="text">
-            <input type="file">
+          <div class="gallery">
+            <div class="item-box">
+                <div class="item crearTrabajo">
+                  <div class="image">
+                      <div class="imageArea">
+                          <label class="customUpload">
+                            <i class="material-icons">insert_photo</i>
+                            <input class="file"
+                                  type="file"
+                                  name="promoImage"
+                                  @change="previewImage"
+      
+                                  accept="image/*">
+                          </label>
+                          <transition name="fade">
+                            <section v-if="editImagePath">
+                              <span type="buttom" class="btnCerrar"
+                                    v-on:click="deleteImage()">
+                                    <i class="material-icons">highlight_off</i>
+                              </span>
+                              <img :src="editImagePath" :alt="`prev ${name}`">
+                            </section>
+                          </transition>
+                          <transition name="fade">
+                            <section v-if="imageData">
+                              <span type="buttom" class="btnCerrar"
+                                    v-on:click="deleteImage()">
+                                    <i class="material-icons">highlight_off</i>
+                              </span>
+                              <img v-if="imageData" :src="imageData" alt="new">
+                            </section>
+                          </transition>
+                        </div>
+                  </div>
+                  <div class="data">
+                      <div class="nombre">
+                        <input type="text"
+                          v-model="trabajo.name">
+                      </div>
+                      <div class="btn"
+                        @click="uploadTrabajo()">
+                        <i class="material-icons">publish</i>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="item-box" v-for="trabajo in reverseItems" :key="trabajo._id">
+                <div class="item">
+                  <div class="image">
+                    <img :src="trabajo.image" alt="">
+                  </div>
+                  <div class="data">
+                    <h4 class="nombre">{{ trabajo.name }}</h4>
+                    <div class="btn"
+                      @click="deleteTrabajo(trabajo._id)">
+                        <i class="material-icons">delete</i>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
           </div>
         </main>
-        <div class="mentira"></div>
+
         <div class="code">
-          {{ log }}
+          <code>
+            <pre>
+                {{ $data }}
+            </pre>
+          </code>
         </div>
       </div>
   </template>
@@ -57,16 +122,89 @@
       el: '#app',
       template: '#baires',
       data: {
-        log: 'hola'
+        editImagePath: '',
+        setImage: '',
+        imageData: '',
+        trabajos: [],
+        trabajo:{
+          name: '',
+          image: '',
+        }
       },
       mounted() {
-        this.postTrabajo()
+        this.chekAuth();
+        this.getTrabajos();
+      },
+      computed: {
+          reverseItems() {
+              return this.trabajos;
+        }     
       },
       methods:{
-        postTrabajo() {
+        previewImage (event){
+          let input = event.target;
+          if (input.files && input.files[0]) {
+            this.setImage = input.files[0]
+            let reader = new FileReader();
+            reader.onload = (e) => {
+              this.imageData = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        },
+        deleteImage (){
+          this.editImagePath = '';
+          this.setImage = '';
+          this.imageData = '';
+        },
+        uploadTrabajo(){
+          //Crear Referencia en el Storage
+          var storageRef = firebase.storage().ref('trabajos/' + this.setImage.name);
+          //Subir Archivo
+          var task = storageRef.put(this.setImage)
+          //Update Progress bar
+          task.on('state_changed',
+            progress = (snapshot) => {
+              var porcentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            },
+            error = (err) => {
+              console.log('error al subir');
+            },
+            complete = () => {
+              this.trabajo.image = task.snapshot.downloadURL;
+              let id = Date.now()
+
+              db.ref('trabajos/' + id).set({
+                _id: id,
+                name: this.trabajo.name,
+                image: this.trabajo.image,
+              })
+              .then(ok =>{
+                  this.getTrabajos()
+                  this.trabajo.name = '';
+                  this.trabajo.image = '';
+                  this.editImagePath = '';
+                  this.setImage = '';
+                  this.imageData = '';
+              })
+            }
+          );
+        },
+        getTrabajos() {
+          ref.orderByChild('_id').on('child_added', (data) => {
+            this.trabajos = data.val()
+          })
+        },
+        deleteTrabajo(key) {
+          trabajosRef.child(key).remove()
+          trabajosRef.on('value', (data) => {
+            this.getTrabajos()
+          });
+        },
+        chekAuth() {
           firebase.auth().onAuthStateChanged(firebaseUser => {
             if (firebaseUser) {
-              console.log('logueado'); 
+
             } else {
               window.location.href = "/login";
             }
@@ -77,6 +215,11 @@
             console.log('Deslogueado');
             window.location.href = "/login";
           });
+        }
+      },
+      filters: {
+        rev: function(arr) {
+            return arr.slice().reverse();
         }
       }
     })

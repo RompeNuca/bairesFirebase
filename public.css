@@ -1,0 +1,134 @@
+@charset "UTF-8";
+/**
+  EDgrid es una librería CSS para construir layouts con Responsive Web Design
+  Importe este archivo en su proyecto para empezar a usarlo
+**/
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.item {
+  margin: 0;
+  padding-left: em(15px);
+  padding-right: em(15px);
+}
+
+.item {
+  width: 100%;
+}
+
+.item.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*
+| Mixin para crear cuadriculas
+|
+| $selector: nombre del selector CSS de cada item de la cuadricula
+|
+| $gutter: separación entre cada item de la cuadricula (opcional)
+|
+*/
+.grid-1234 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: -0.75em;
+  margin-right: -0.75em;
+}
+
+.grid-1234 img {
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.grid-1234 > .item {
+  width: calc(100% - 1.5em);
+  margin: 0.75em;
+}
+
+@media screen and (min-width: 640px) {
+  .grid-1234 > .item {
+    width: calc(50% - 1.5em);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .grid-1234 > .item {
+    width: calc(33.33333% - 1.5em);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .grid-1234 > .item {
+    width: calc(25% - 1.5em);
+  }
+}
+
+.item {
+  cursor: pointer;
+}
+
+.item:hover {
+  background: #502bac;
+}
+
+.item:hover .image::before {
+  content: '';
+  width: 100%;
+  height: 200%;
+  position: absolute;
+  z-index: 110;
+  background-image: url("../img/mas.svg");
+  background-position: center 25%;
+  background-size: 3rem;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  -webkit-filter: contrast(200%);
+          filter: contrast(200%);
+  opacity: 0.4;
+}
+
+.item:hover .data {
+  border-top: 0.2rem solid #3d2183;
+}
+/*# sourceMappingURL=public.css.map */
