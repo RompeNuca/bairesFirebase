@@ -40,7 +40,7 @@ a:hover {
   width: 100%;
 }
 
-.item {
+.item, .gallery .item-box, .gallery .item-box:nth-child(-n+3) {
   margin: 0;
   padding-left: em(15px);
   padding-right: em(15px);
@@ -101,6 +101,68 @@ body {
 @media screen and (min-width: 1440px) {
   .grid-1234 > .item {
     width: calc(25% - 1.5em);
+  }
+}
+
+.gallery .item-box {
+  width: 50%;
+}
+
+@media screen and (min-width: 640px) {
+  .gallery .item-box {
+    width: 33.33%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .gallery .item-box {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .gallery .item-box {
+    width: 20%;
+  }
+}
+
+.gallery .item-box:nth-child(-n+3) {
+  width: 100%;
+}
+
+@media screen and (min-width: 640px) {
+  .gallery .item-box:nth-child(-n+3) {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .gallery .item-box:nth-child(-n+3) {
+    width: 33.33%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .gallery .item-box:nth-child(-n+3) {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .gallery .item-box {
+    width: 33.33% !important;
+  }
+  .gallery .item-box:nth-child(-n+2) {
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .gallery .item-box {
+    width: 50% !important;
+  }
+  .gallery .item-box:nth-child(1) {
+    width: 100% !important;
   }
 }
 

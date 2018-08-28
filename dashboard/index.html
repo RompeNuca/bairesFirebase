@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="item-box" v-for="trabajo in reverseItems" :key="trabajo._id">
+            <div class="item-box" v-for="trabajo in trabajos" :key="trabajo._id">
                 <div class="item">
                   <div class="image">
                     <img :src="trabajo.image" alt="">
@@ -135,10 +135,7 @@
         this.chekAuth();
         this.getTrabajos();
       },
-      computed: {
-          reverseItems() {
-              return this.trabajos;
-        }     
+      computed: {    
       },
       methods:{
         previewImage (event){
@@ -191,9 +188,12 @@
           );
         },
         getTrabajos() {
-          ref.orderByChild('_id').on('child_added', (data) => {
-            this.trabajos = data.val()
+          let rever = []
+          trabajosRef.on('child_added', (data) => {
+              let trabajo = data.val()
+                rever.unshift(trabajo)
           })
+          this.trabajos = rever
         },
         deleteTrabajo(key) {
           trabajosRef.child(key).remove()
