@@ -1,32 +1,6 @@
 @import '../scss/general';
 
 // GENERALES
-.gallery{
-  
-  .item-box{
-    @include edItem(50,33.33,25,20);
-    &:nth-child(-n+3){
-      @include edItem(100,50,33.33,25);
-    }
-  }
-  @include to(l){
-    .item-box{
-      width: 33.33% !important;
-      &:nth-child(-n+2){
-        width: 50% !important;
-      }
-    } 
-  }
-  @include to(m){
-    .item-box{
-      width: 50% !important;
-      &:nth-child(1){
-        width: 100% !important;
-      }
-    } 
-  }
-
-}
 
 .data{
   display: flex;
@@ -122,3 +96,31 @@
   }
 }
 
+.check{
+  position: absolute;
+  background-color: rgba(55, 55, 55, 0.7);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h4{
+    font-weight: 200;
+  }
+  .cancel{
+    margin: 1rem 0;
+    cursor: pointer;
+  }
+  .delete{
+    padding: 1rem;
+    background-color: #ff3c3c;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-top: 1rem;
+    &:hover{
+      color: #ff3c3c;
+      background-color: $cW;
+    }
+  }
+}

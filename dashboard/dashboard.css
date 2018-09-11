@@ -40,7 +40,7 @@ a:hover {
   width: 100%;
 }
 
-.item, .gallery .item-box, .gallery .item-box:nth-child(-n+3) {
+.item {
   margin: 0;
   padding-left: em(15px);
   padding-right: em(15px);
@@ -101,68 +101,6 @@ body {
 @media screen and (min-width: 1440px) {
   .grid-1234 > .item {
     width: calc(25% - 1.5em);
-  }
-}
-
-.gallery .item-box {
-  width: 50%;
-}
-
-@media screen and (min-width: 640px) {
-  .gallery .item-box {
-    width: 33.33%;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .gallery .item-box {
-    width: 25%;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .gallery .item-box {
-    width: 20%;
-  }
-}
-
-.gallery .item-box:nth-child(-n+3) {
-  width: 100%;
-}
-
-@media screen and (min-width: 640px) {
-  .gallery .item-box:nth-child(-n+3) {
-    width: 50%;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .gallery .item-box:nth-child(-n+3) {
-    width: 33.33%;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .gallery .item-box:nth-child(-n+3) {
-    width: 25%;
-  }
-}
-
-@media screen and (max-width: 1023px) {
-  .gallery .item-box {
-    width: 33.33% !important;
-  }
-  .gallery .item-box:nth-child(-n+2) {
-    width: 50% !important;
-  }
-}
-
-@media screen and (max-width: 639px) {
-  .gallery .item-box {
-    width: 50% !important;
-  }
-  .gallery .item-box:nth-child(1) {
-    width: 100% !important;
   }
 }
 
@@ -299,5 +237,47 @@ body {
 
 .imageArea .btnCerrar i {
   font-size: 2em;
+}
+
+.check {
+  position: absolute;
+  background-color: rgba(55, 55, 55, 0.7);
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.check h4 {
+  font-weight: 200;
+}
+
+.check .cancel {
+  margin: 1rem 0;
+  cursor: pointer;
+}
+
+.check .delete {
+  padding: 1rem;
+  background-color: #ff3c3c;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.check .delete:hover {
+  color: #ff3c3c;
+  background-color: #fff;
 }
 /*# sourceMappingURL=dashboard.css.map */

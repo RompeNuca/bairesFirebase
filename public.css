@@ -104,15 +104,15 @@ body {
   }
 }
 
-.item {
+.gallery .item {
   cursor: pointer;
 }
 
-.item:hover {
+.gallery .item:hover {
   background: #502bac;
 }
 
-.item:hover .image::before {
+.gallery .item:hover .image::before {
   content: '';
   width: 100%;
   height: 200%;
@@ -128,7 +128,7 @@ body {
   opacity: 0.4;
 }
 
-.item:hover .data {
+.gallery .item:hover .data {
   border-top: 0.2rem solid #3d2183;
 }
 /*# sourceMappingURL=public.css.map */

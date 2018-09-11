@@ -24,7 +24,7 @@
           </main>
         </nav>
         <main>
-          <div class="gallery">
+            <div class="gallery">
             <div class="item-box">
                 <div class="item crearTrabajo">
                   <div class="image">
@@ -70,7 +70,13 @@
                   </div>
                 </div>
             </div>
+          </div>
 
+            <transition-group
+              name="fade"
+              tag="div"
+              class="gallery"
+            >
             <div class="item-box" v-for="trabajo in trabajos" :key="trabajo._id">
                 <div class="item">
                   <div class="image">
@@ -79,26 +85,37 @@
                   <div class="data">
                     <h4 class="nombre">{{ trabajo.name }}</h4>
                     <div class="btn"
-                      @click="deleteTrabajo(trabajo._id)">
+                      @click="quest(trabajo._id)">
                         <i class="material-icons">delete</i>
                     </div>
                   </div>
+                  <div class="check" 
+                    v-if="trabajo.delete">
+                    <h4>Estas seguro de eliminar este item?</h4>
+                    <div class="btn delete"
+                    @click="deleteTrabajo(trabajo._id)">Eliminar</div>
+                    <div class="btn cancel"
+                    @click="quest(trabajo._id)">
+                      Cancelar
+                    </div>
+                  </div>
                 </div>
-            </div>
 
+            </transition-group>
           </div>
         </main>
 
-        <div class="code">
+        <!-- <div class="code">
           <code>
             <pre>
                 {{ $data }}
             </pre>
           </code>
-        </div>
+        </div> -->
       </div>
   </template>
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/2.0.3/velocity.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
@@ -127,6 +144,7 @@
         imageData: '',
         trabajos: [],
         trabajo:{
+          delete: false,
           name: '',
           image: '',
         }
@@ -135,9 +153,38 @@
         this.chekAuth();
         this.getTrabajos();
       },
-      computed: {    
+      computed: {
+        reverseItems() {
+          return this.trabajos;
+        }
       },
       methods:{
+        beforeEnter(el) {
+          el.style.opacity = 0
+          el.style.height = 0
+        },
+        enter(el, done) {
+          console.log(el);
+          
+          var delay = el.dataset.index * 150
+          setTimeout(function () {
+            Velocity(
+              el,
+              { opacity: 1, height: '1.6em' },
+              { complete: done }
+            )
+          }, delay)
+        },
+        leave(el, done) {
+          var delay = el.dataset.index * 150
+          setTimeout(function () {
+            Velocity(
+              el,
+              { opacity: 0, height: 0 },
+              { complete: done }
+            )
+          }, delay)
+        },
         previewImage (event){
           let input = event.target;
           if (input.files && input.files[0]) {
@@ -175,6 +222,7 @@
                 _id: id,
                 name: this.trabajo.name,
                 image: this.trabajo.image,
+                delete: this.trabajo.delete,
               })
               .then(ok =>{
                   this.getTrabajos()
@@ -188,12 +236,19 @@
           );
         },
         getTrabajos() {
-          let rever = []
-          trabajosRef.on('child_added', (data) => {
-              let trabajo = data.val()
-                rever.unshift(trabajo)
+          ref.orderByChild('_id').on('child_added', (data) => {
+            let trabajos = data.val()
+            this.trabajos = Object.keys(trabajos).map(i => trabajos[i])
           })
-          this.trabajos = rever
+        },
+        quest(key) {
+          let trabajosTemp = this.trabajos
+          let ele = trabajosTemp.findIndex(x => x._id == key);
+          let selected = trabajosTemp[ele]
+          selected.delete = !selected.delete
+          trabajosTemp[ele] = selected;
+          
+          this.trabajos = trabajosTemp
         },
         deleteTrabajo(key) {
           trabajosRef.child(key).remove()

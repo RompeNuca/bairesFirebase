@@ -36,9 +36,14 @@
             </div>
           </div>
 
-          <div class="gallery">
+          <transition-group
+              name="fade"
+              tag="div"
+              class="gallery"
+            >
             <div class="item-box" v-for="trabajo in trabajos" :key="trabajo._id">
-              <div class="item">
+              <div class="item"
+              @click="quest(trabajo._id)">
                 <div class="image">
                   <img :src="trabajo.image" alt="">
                 </div>
@@ -47,7 +52,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </transition-group>
 
           <div class="back">
             <div class="rellax red" data-rellax-speed="-7"></div>
@@ -58,19 +63,32 @@
             <div class="rellax yellowG" data-rellax-speed="-3"></div>
           </div> 
           
-          
           <div class="detalle-fondo"
-                v-if="detalle">
-            <div class="detalle">
-
+                v-if="trabajo">
+            <div class="detalle item-box">
+                <div class="next"
+                @click="arrow(trabajo._id, 'siguiente')"></div>
+                <div class="back"
+                @click="arrow(trabajo._id, 'anterior')"></div>
+                <div class="item"
+                @click="quest(trabajo._id)">
+                  <div class="image">
+                    <img :src="trabajo.image" alt="">
+                  </div>
+                  <div class="data">
+                    <h4>{{trabajo.name}}</h4>
+                  </div>
+                </div>
             </div>
+            <span class="salir"
+            @click="trabajo = ''" />
           </div>
 
         </main>
-        <div class="mentira"></div>
-        <div class="code">
-          {{ trabajos }}
-        </div>
+        <!-- <div class="mentira"></div> -->
+        <!-- <div class="code">
+          {{ trabajo }}
+        </div> -->
       </div>
   </template>
   <script src="js/rellax.js"></script>
@@ -98,7 +116,7 @@
       el: '#app',
       template: '#baires',
       data: {
-        detalle: false,
+        trabajo: '',
         trabajos: [],
       },
       mounted() {
@@ -107,9 +125,44 @@
       },
       methods:{
         getTrabajos() {
-          trabajosRef.on('value', (data) => {
-            this.trabajos = data.val()
+          ref.orderByChild('_id').on('child_added', (data) => {
+            let trabajos = data.val()
+            this.trabajos = Object.keys(trabajos).map(i => trabajos[i])
           })
+        },
+        quest(key) {
+          let trabajosTemp = this.trabajos
+          let ele = trabajosTemp.findIndex(x => x._id == key);
+          this.trabajo = trabajosTemp[ele]
+        },
+        arrow(key, direct) {
+
+          let trabajosTemp = this.trabajos
+          let a = 0; 
+
+          let ubicacion = trabajosTemp.findIndex(x => x._id == key);
+             
+          var siguiente = trabajosTemp[0]
+          var anterior = trabajosTemp[trabajosTemp.length - 1]
+
+          if (ubicacion +1 < trabajosTemp.length) {
+            siguiente = trabajosTemp[ ubicacion + 1 ]
+          }
+   
+          if (ubicacion > 0) {
+            anterior = trabajosTemp[ ubicacion -1 ]
+          }
+        
+          switch (direct) {
+            case 'siguiente':
+              this.trabajo = siguiente
+            break;
+            case 'anterior':
+              this.trabajo = anterior
+            break;
+          }
+          
+          this.trabajos = trabajosTemp
         }
       }
     })
