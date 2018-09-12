@@ -16,11 +16,11 @@
   </div>
 
   <template id="baires">
-    <div class="all">
+    <div class="all" id="top">
       <nav>
           <main>
-            <a href="#">Home</a>
-            <a href="#">Trabajos</a>
+            <a href="#top">Home</a>
+            <a href="#trabajos">Trabajos</a>
             <a href="#">Contacto</a>
           </main>
         </nav>
@@ -35,13 +35,23 @@
               </p>
             </div>
           </div>
-
+          <div id="trabajos" class="filters-content">
+            <div class="tituloTrabajos">
+              <h3>Nuestros Trabajos:</h3>
+            </div>
+            <div class="filter btn"
+              v-for="type in types" :key="type"
+              @click="filter(type)">
+              {{type}}
+            </div>
+          </div>
           <transition-group
-              name="fade"
+              name="card"
+              mode="out-in"
               tag="div"
               class="gallery"
             >
-            <div class="item-box" v-for="trabajo in trabajos" :key="trabajo._id">
+            <div class="item-box card" v-for="trabajo in trabajos" :key="trabajo._id">
               <div class="item"
               @click="quest(trabajo._id)">
                 <div class="image">
@@ -61,8 +71,9 @@
             <div class="rellax redG" data-rellax-speed="-9"></div>
             <div class="rellax blueG" data-rellax-speed="-6"></div>
             <div class="rellax yellowG" data-rellax-speed="-3"></div>
-          </div> 
-          
+          </div>
+
+          <transition name="fade">
           <div class="detalle-fondo"
                 v-if="trabajo">
             <div class="detalle item-box">
@@ -83,11 +94,11 @@
             <span class="salir"
             @click="trabajo = ''" />
           </div>
-
+        </transition>
         </main>
         <!-- <div class="mentira"></div> -->
         <!-- <div class="code">
-          {{ trabajo }}
+          {{ trabajosRef }}
         </div> -->
       </div>
   </template>
@@ -118,6 +129,8 @@
       data: {
         trabajo: '',
         trabajos: [],
+        trabajosRef: [],
+        types: ['Todos', 'Pakagin', 'Promocionales', 'Punto de venta', 'Imprenta']
       },
       mounted() {
         var rellax = new Rellax('.rellax');
@@ -127,7 +140,8 @@
         getTrabajos() {
           ref.orderByChild('_id').on('child_added', (data) => {
             let trabajos = data.val()
-            this.trabajos = Object.keys(trabajos).map(i => trabajos[i])
+            this.trabajos = Object.keys(trabajos).map(i => trabajos[i]).reverse()
+            this.trabajosRef = Object.keys(trabajos).map(i => trabajos[i]).reverse()
           })
         },
         quest(key) {
@@ -163,7 +177,18 @@
           }
           
           this.trabajos = trabajosTemp
-        }
+        },
+        filter(type) {
+
+          if (type == 'Todos') {
+            this.trabajos = this.trabajosRef
+            return
+          }
+          let filtrados = this.trabajosRef.filter(obj => {
+                return obj.type === type
+              })
+          this.trabajos = filtrados;
+        },
       }
     })
   </script>

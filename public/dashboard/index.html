@@ -19,7 +19,7 @@
     <div class="all">
       <nav>
           <main>
-            <a href="#">Home</a>
+            <a href="/">Home</a>
             <a href="#" @click="singOut()">Salir</a>
           </main>
         </nav>
@@ -27,6 +27,7 @@
             <div class="gallery">
             <div class="item-box">
                 <div class="item crearTrabajo">
+                  <div class="cargando" v-if="cargando">cargando...</div>
                   <div class="image">
                       <div class="imageArea">
                           <label class="customUpload">
@@ -62,6 +63,16 @@
                       <div class="nombre">
                         <input type="text"
                           v-model="trabajo.name">
+                          <div class="select-container">
+                            <select class="select"
+                              v-model='trabajo.type'>
+                                <option  v-for="type in types" 
+                                  :key="type" 
+                                  :value="type">
+                                  {{ type }}
+                                </option>
+                              </select>
+                        </div>
                       </div>
                       <div class="btn"
                         @click="uploadTrabajo()">
@@ -73,11 +84,11 @@
           </div>
 
             <transition-group
-              name="fade"
+              name="card"
               tag="div"
               class="gallery"
             >
-            <div class="item-box" v-for="trabajo in trabajos" :key="trabajo._id">
+            <div class="item-box card" v-for="trabajo in trabajos" :key="trabajo._id">
                 <div class="item">
                   <div class="image">
                     <img :src="trabajo.image" alt="">
@@ -108,7 +119,7 @@
         <!-- <div class="code">
           <code>
             <pre>
-                {{ $data }}
+                {{ $data.trabajo}}
             </pre>
           </code>
         </div> -->
@@ -139,14 +150,17 @@
       el: '#app',
       template: '#baires',
       data: {
+        cargando: false,
         editImagePath: '',
         setImage: '',
         imageData: '',
         trabajos: [],
+        types: ['Pakagin','Promocionales', 'Punto de venta', 'Imprenta'],
         trabajo:{
           delete: false,
           name: '',
           image: '',
+          type: 'Pakagin',
         }
       },
       mounted() {
@@ -165,7 +179,6 @@
         },
         enter(el, done) {
           console.log(el);
-          
           var delay = el.dataset.index * 150
           setTimeout(function () {
             Velocity(
@@ -202,6 +215,7 @@
           this.imageData = '';
         },
         uploadTrabajo(){
+          this.cargando = true
           //Crear Referencia en el Storage
           var storageRef = firebase.storage().ref('trabajos/' + this.setImage.name);
           //Subir Archivo
@@ -222,9 +236,11 @@
                 _id: id,
                 name: this.trabajo.name,
                 image: this.trabajo.image,
+                type: this.trabajo.type,
                 delete: this.trabajo.delete,
               })
               .then(ok =>{
+                  this.cargando = false
                   this.getTrabajos()
                   this.trabajo.name = '';
                   this.trabajo.image = '';
@@ -238,7 +254,7 @@
         getTrabajos() {
           ref.orderByChild('_id').on('child_added', (data) => {
             let trabajos = data.val()
-            this.trabajos = Object.keys(trabajos).map(i => trabajos[i])
+            this.trabajos = Object.keys(trabajos).map(i => trabajos[i]).reverse()
           })
         },
         quest(key) {

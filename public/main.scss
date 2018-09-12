@@ -69,6 +69,9 @@ nav{
   width: 100%;
   background-color: $cB;
   position: relative;
+  main{
+    justify-content: flex-start;
+  }
   a{
     font-family: $fA;
     text-transform: uppercase;
@@ -117,28 +120,30 @@ nav{
 }
 
 .red,.blue,.yellow,.redG,.blueG,.yellowG{
+  z-index: 1;
   height: 48rem;
-  width: 40rem;
+  max-width: 40rem;
+  width: 100%;
   position: absolute;
   background-size: cover;
 }
 .red{
-  background-image: url('../img/paralax/rojo.svg');
+  background-image: url('./img/paralax/rojo.svg');
 }
 .blue{
-  background-image: url('../img/paralax/azul.svg');
+  background-image: url('./img/paralax/azul.svg');
 }
 .yellow{
-  background-image: url('../img/paralax/amarillo.svg');
+  background-image: url('./img/paralax/amarillo.svg');
 }
 .redG{
-  background-image: url('../img/paralax/rojoG.svg');
+  background-image: url('./img/paralax/rojoG.svg');
 }
 .blueG{
-  background-image: url('../img/paralax/azulG.svg');
+  background-image: url('./img/paralax/azulG.svg');
 }
 .yellowG{
-  background-image: url('../img/paralax/amarilloG.svg');
+  background-image: url('./img/paralax/amarilloG.svg');
 }
 
 .mentira{
@@ -152,7 +157,7 @@ nav{
   @include edContainer;
   position: relative;
   z-index: 100;
-  margin-top: 4rem;
+  margin-top: 2rem;
   .item-box{
     @include flex;
     @include edItem(100,50,33.33,25);
@@ -200,9 +205,6 @@ nav{
   }
 }
 
-
-
-
 .detalle-fondo{
   position: fixed;
   z-index: 200;
@@ -224,6 +226,8 @@ nav{
     padding: 2px;
     border-radius: 4px;
     align-items: center;
+    max-width: 80%;
+    max-height: 90vh;
   }
   .next,.back{
     z-index: 90;
@@ -262,12 +266,14 @@ nav{
       width: 32px;
       height: 32px;
       font-size: 2rem;
-
     }
   }
   .item{
     @include flex;
+    max-height: 80vh;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: relative;
     background: $cB;
     color: $cW;
@@ -282,10 +288,12 @@ nav{
       justify-content: center;
       align-items: center;
       user-select: none;
+      max-width: 100%;
       img{
         display: block;
         // object-fit: cover;
         max-width: 90%;
+        max-height: 90vh;
         top: 0;
         left: 0;
         bottom: 0;
@@ -293,6 +301,7 @@ nav{
       }
     }
     .data{
+      width: 100%;
       box-sizing: border-box;
       padding: 1rem;
       border-top: 0.2rem solid #40cd53;
@@ -309,4 +318,62 @@ nav{
   height: 100%;
   display: block;
   z-index: 1;
+}
+
+.filters-content{
+  z-index: 2;
+  @include flex;
+  @include edItem(100);
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  .filter{
+    padding: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: $fA;
+    background-color: $cC;
+    margin: 0.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+    cursor: pointer;
+    &:hover{
+      color: $cC;
+      background-color: #fff; 
+    }
+  }
+}
+
+.tituloTrabajos{
+  @include from(m){
+    margin-right: 0.5rem;
+  };
+ h3{
+   text-align: center;
+   font-family: $fA;
+   font-weight: 500;
+ }
+}
+
+.card {
+  transition: all 0.6s;
+}
+.card-enter, .card-leave-to
+/* .card-leave-active for <2.1.8 */ {
+  opacity: 0;
+  transform: scale(0);
+}
+.card-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card-leave-active {
+  position: absolute;
+}
+
+.card-move {
+  opacity: 1;
+  transition: all 0.5s;
 }
