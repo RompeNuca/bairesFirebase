@@ -51,7 +51,8 @@
               tag="div"
               class="gallery"
             >
-            <div class="item-box card" v-for="trabajo in trabajos" :key="trabajo._id">
+            <div class="item-box card" v-for="trabajo in trabajos" :key="trabajo._id"
+              :class="{cardEnd:trabajos.delete}">
               <div class="item"
               @click="quest(trabajo._id)">
                 <div class="image">
@@ -187,7 +188,15 @@
           let filtrados = this.trabajosRef.filter(obj => {
                 return obj.type === type
               })
-          this.trabajos = filtrados;
+          let descarte = this.trabajosRef.filter(obj => {
+                    let ele = (obj.type !== type)
+                    ele.delte = true
+                return ele
+              })
+          this.trabajos = (descarte + filtrados)
+          setTimeout(() => {
+            this.trabajos = filtrados;
+          }, 500);
         },
       }
     })
